@@ -1,0 +1,109 @@
+<!-- /public/views/home.html -->
+
+<!-- ANGULAR DIRECTIVE HEADER -->
+<div header2></div>
+
+
+<!-- Jumbotron message -->
+<div class="jumbotron text-center">
+  <h1>{{ section }}</h1>
+  <p>{{ tagline }}</p>
+</div>
+
+<!-- User information -->
+<div class="userinfo">
+  <h1>Profile information:</h1>
+  <h5>These setting can be changed in the <a href="#setting">setting</a> tab</h5>
+
+  <div class="userinfo-values">
+    <p><b>First name: </b>{{ userinfo.firstname }}</p>
+    <p><b>Last name: </b>{{ userinfo.lastname }}</p>
+    <p><b>City: </b>{{ userinfo.city }}</p>
+    <p><b>State: </b>{{ userinfo.state }}</p>
+  </div>
+</div>
+
+<br>
+<div class="hl"></div>
+<br>
+
+<!-- Books -->
+<div>
+  <h1>My Books:</h1>
+</div>
+
+<!-- Add new books -->
+<div class="row">
+<div class="col-md-4">
+  <form class="form-inline" ng-controller="myBooksUpdateController" 
+        ng-submit="addBook()">
+    <div class="form-group">
+      <input type="text" class="form-control" name="add-book" 
+             ng-model="addNewBook.bookname" placeholder="Add Book" required>
+      <button type="submit" class="btn btn-default" ng-disabled="disabled">
+        Add
+      </button>
+    </div>
+  </form>
+</div>
+</div>
+<br>
+
+<!-- Show user's books -->
+<div class="row">
+<div ng-repeat="book in userbooks" class="book-collection" 
+     ng-controller="myBooksUpdateController">
+  <div class="book">
+    <div ng-click="removeBook()" class="btn btn-default btn-sm bc-trade-btn"
+         ng-disabled="disabled">remove</div>
+    <p>{{ book.bookname }}</p>
+  </div>
+</div>
+</div>
+
+
+<br>
+<div class="hl"></div>
+<br>
+
+<!-- Trades -->
+
+<!-- 1. User's requested trades -->
+<div>
+  <h1>Trade offers requested:</h1>
+</div>
+
+<div class="row">
+<div ng-repeat="tradereq in tradesrequested" class="book-collection"
+     ng-controller="myBooksUpdateController">
+  <div class="book tradereq">
+    <div ng-click="withdrawTrade()" class="btn btn-default btn-sm bc-trade-btn"
+         ng-disabled="disabled">withdraw</div>
+    <p>{{ tradereq.bookname }}</p>
+    <p>Owner: {{ tradereq.owner }}</p>
+  </div>
+</div>
+</div>
+
+
+<!-- 2. Show user's received trades -->
+<div>
+  <h1>Trade offers received:</h1> 
+</div>
+
+<div class="row">
+<div ng-repeat="traderec in tradesreceived" class="book-collection"
+     ng-controller="myBooksUpdateController">
+  <div class="book traderec">
+    <div class="bc-btn-row bc-trade-btn">
+      <div ng-click="acceptTrade()" class="btn btn-default btn-sm "
+           ng-disabled="disabled">accept</div>
+      <div ng-click="declineTrade()" class="btn btn-default btn-sm "
+           ng-disabled="disabled">deny</div>
+    </div>
+    <p>{{ traderec.bookname }}</p>
+    <p>From: {{ traderec.requester }}</p>
+  </div>
+</div>
+</div>
+

@@ -1,0 +1,5 @@
+.env
+_archive/
+_misc/
+node_modules/
+public/libs/

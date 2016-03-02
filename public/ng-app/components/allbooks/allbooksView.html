@@ -1,0 +1,32 @@
+<!-- /public/views/home.html -->
+
+<!-- ANGULAR DIRECTIVE HEADER -->
+<div header2></div>
+
+
+<!-- Jumbotron message -->
+<div class="jumbotron text-center">
+  <h1>{{ section }}</h1>
+  <p>{{ tagline }}</p>
+</div>
+
+<!-- Show all books -->
+<br>
+<div class="row">
+<div ng-repeat="book in allbooks" class="book-collection">
+  <div class="book">
+
+<!-- TODO: need to show a window pane to select books offered for trade -->
+
+    <div ng-click="trade()"
+    				class="btn btn-default btn-sm bc-trade-btn" 
+    				ng-disabled="disabled">
+      Trade
+    </div>
+    </form>
+
+  	<p>{{ book.bookname }}</p>
+  	<p>{{ book.username }}</p>
+  </div>
+</div>
+</div>

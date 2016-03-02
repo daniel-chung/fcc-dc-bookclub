@@ -1,0 +1,47 @@
+
+body {
+	font-size: 14px;
+}
+
+div.hl {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+
+.book-collection {
+  margin: auto;
+  text-align:center;
+  display: inline-block;	
+}
+.book {
+	padding: 0.25em;
+	margin: 0.5em;
+	width: 8em;
+	height: 12em;
+	border: 1px solid red;
+  text-align:left;
+}
+
+.bc-trade-btn {
+	visibility: hidden;		/* search google for the actual hidden value; also overlay */
+	position: absolute;
+}
+.book:hover .bc-trade-btn {
+	visibility: visible;
+}
+
+.userinfo-values {
+	margin: 2em;
+}
+.userinfo-values b {
+	font-size: 1.1em;
+	font-weight: 800;
+}
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}

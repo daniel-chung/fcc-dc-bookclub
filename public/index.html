@@ -1,0 +1,49 @@
+<!-- /public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <base href="/"> <!--what is this -->
+
+  <title>Book trading club</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="bookClubApp"> <!-- "bookClubApp" ng-controller="mainController">-->
+
+<!-- ANGULAR DYNAMIC CONTENT -->
+  <div class="container">
+    <div ng-view></div>
+  </div>
+
+<!-- JS -->
+  <!-- FRAMEWORKS -->
+  <script src="libs/jquery/dist/jquery.min.js"></script>
+  <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="libs/angular/angular.min.js"></script>
+  <script src="libs/angular-route/angular-route.min.js"></script>
+
+  <!-- ANGULAR CUSTOM -->
+  <script src="ng-app/app.js"></script>
+  <script src="ng-app/shared/service-auth/authService.js"></script>
+  <script src="ng-app/shared/service-book/bookService.js"></script>
+  <script src="ng-app/shared/service-userinfo/userinfoService.js"></script>
+
+  <script src="ng-app/shared/header/header.js"></script>
+  <script src="ng-app/components/home/homeController.js"></script>
+  <script src="ng-app/components/about/aboutController.js"></script>
+  <script src="ng-app/components/login/loginController.js"></script>
+  <script src="ng-app/components/register/registerController.js"></script>
+  <script src="ng-app/components/logout/logoutController.js"></script>
+  <script src="ng-app/components/mybooks/mybooksController.js"></script>
+  <script src="ng-app/components/allbooks/allbooksController.js"></script>
+  <script src="ng-app/components/setting/settingController.js"></script>
+
+  <script src="ng-app/components/test/testController.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!-- /ng-app/components/about/aboutView.html -->
+
+<!-- ANGULAR DIRECTIVE HEADER -->
+<div ng-controller="headerController">
+	<div header2></div>
+</div>
+
+<!-- Jumbotron message -->
+<div class="jumbotron text-center">
+	<h1>{{ section }}</h1>
+	<p>{{ tagline }}</p>
+</div>
+
+<!-- Update your name -->
+<div class="row">
+<div class="col-md-4">
+	<h2>Update your name:</h2>
+	<form class="form" ng-controller="settingController" ng-submit="updateFullname()">
+	<div class="form-group">
+		<label>First name</label>
+		<input type="text" class="form-control" name="first-name"
+					 ng-model="fullnameForm.firstname">
+	</div>
+	<div class="form-group">
+		<label>Last name</label>
+		<input type="text" class="form-control" name="last-name"
+					 ng-model="fullnameForm.lastname">
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default" ng-disabled="disbled">
+			Submit
+		</button>
+	</div>
+	</form>
+</div>
+</div>
+<br>
+
+<!-- Update your location -->
+<div class="row">
+<div class="col-md-4">
+	<h2>Update your location:</h2>
+	<form class="form" ng-controller="settingController" ng-submit="updateLocation()">
+	<div class="form-group">
+		<label>City</label>
+		<input type="text" class="form-control" name="new-city"
+					 ng-model="locationForm.newcity">
+	</div>
+	<div class="form-group">
+		<label>State</label>
+		<input type="text" class="form-control" name="new-state"
+					 ng-model="locationForm.newstate">
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default" ng-disabled="disbled">
+			Submit
+		</button>
+	</div>
+	</form>
+</div>
+</div>
+<br>
+
+
+<!-- Change your password -->
+<div class="row">
+<div class="col-md-4">
+	<h2>Change your password:</h2>
+	<form class="form"> <!-- ng-controller="settingController" ng-submit="changePassword()"> -->
+	<div class="form-group">
+		<label>Old password</label>
+		<input type="password" class="form-control" name="old-password" 
+					 placeholder="Old password" required>
+					 <!-- ng-model="changePassword.oldpassword-->
+	</div>
+	<div class="form-group">
+		<label>New password</label>
+		<input type="password" class="form-control" name="new-password" 
+					 placeholder="New password" required>
+					 <!-- ng-model="changePassword.newpassword-->
+	</div>
+	<div class="form-group">
+		<button type="submit" class="btn btn-default" ng-disabled="disbled">
+			Submit
+		</button>
+	</div>
+	</form>
+</div>
+</div>
