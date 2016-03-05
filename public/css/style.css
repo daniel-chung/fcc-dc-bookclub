@@ -18,19 +18,50 @@ div.hl {
 .book {
 	padding: 0.25em;
 	margin: 0.5em;
-	width: 8em;
-	height: 12em;
-	border: 1px solid red;
+	/* border: 1px solid red; */
   text-align:left;
 }
+
+.book-img {
+	width: 8em;
+	height: 12em;	
+}
+
+
 
 .bc-trade-btn {
 	visibility: hidden;		/* search google for the actual hidden value; also overlay */
 	position: absolute;
+  display: inline-block;	
+  z-index: 100;
 }
+
+
+
+/* Trade request approval/rejection */
+.book:hover img {
+   -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+  filter: grayscale(100%);
+}
+
+/* Show action buttons */
 .book:hover .bc-trade-btn {
 	visibility: visible;
 }
+
+
+
+/* Icons -------------------------------------------------------------------- */
+.fa-check {
+	color: #2FFB95;
+}
+.fa-times {	
+	color: #F08080;
+}
+.fa-exchange {
+	color: #EB2457;
+}
+
 
 .userinfo-values {
 	margin: 2em;

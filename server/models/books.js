@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
 // Define Books model schema ---------------------------------------------------
 var booksSchema = mongoose.Schema({
   username  : String,
-  bookname  : String
+  bookname  : String,
+  thumbnail	: String
 });
 
 

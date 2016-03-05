@@ -132,11 +132,50 @@
           $route.reload();
 
         };
-    }]);
+
+
 
     // acceptTrade()
-    // declineTrade()
+        $scope.acceptTrade = function () {
+          $scope.error = false;
+          $scope.disabled = true;
+          
+          // call register from service
+          BookService.acceptTrade(this.traderec._id)
+            .then(function (data) {     // <--- this doesn't seem to work.
+            })
+            .catch(function () {
+              $scope.error = true;
+              $scope.errorMessage = "Something went wrong!";
+            });
 
+          $scope.disabled = false;
+          $route.reload();
+
+        };
+
+    // declineTrade()
+        $scope.declineTrade = function () {
+          console.log(this.traderec);
+
+          $scope.error = false;
+          $scope.disabled = true;
+          
+          // call register from service
+          BookService.declineTrade(this.traderec._id)
+            .then(function (data) {     // <--- this doesn't seem to work.
+            })
+            .catch(function () {
+              $scope.error = true;
+              $scope.errorMessage = "Something went wrong!";
+            });
+
+          $scope.disabled = false;
+          $route.reload();
+
+        };
+
+    }]);
 
 
 

@@ -12,8 +12,11 @@ var tradesSchema = mongoose.Schema({
   requester : String,
   owner 		: String,
   offerid 	: String,
-  offername	: String
+  offername	: String,
+  status 		: Number,
+  thumbnail	: String
 });
+	// Status: { -1: pending, 0: rejected, 1: approved}
 
 
 // Export ----------------------------------------------------------------------

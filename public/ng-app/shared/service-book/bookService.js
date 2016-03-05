@@ -1,4 +1,6 @@
-// Create BookService factory ------------------------------------------------------
+
+
+// Create BookService factory --------------------------------------------------
 angular.module('bookClubApp').factory('BookService',
   ['$q', '$timeout', '$http',
   function ($q, $timeout, $http) {
@@ -8,6 +10,7 @@ angular.module('bookClubApp').factory('BookService',
       $http.post('/books/add', {bookName: bookName})
         .success(function(data, status) {
           if (status === 200 && data.status) {
+            console.log('data.status', data.status);
             deferred.resolve(data);
           } else {
             deferred.reject();
@@ -51,10 +54,48 @@ angular.module('bookClubApp').factory('BookService',
         return deferred.promise;
     }
 
+
+    function acceptTrade(tradeId) {
+      console.log('accept', tradeId);
+      var deferred = $q.defer();
+      $http.post('/trade/accept', { _id: tradeId })
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
+            deferred.resolve(data);
+          } else {
+            deferred.reject();
+          }
+        })
+        .error(function(data) {
+          deferred.reject();
+        });
+        return deferred.promise;
+    }
+
+
+    function declineTrade(tradeId) {
+      var deferred = $q.defer();
+      $http.post('/trade/decline', { _id: tradeId })
+        .success(function(data, status) {
+          if (status === 200 && data.status) {
+            deferred.resolve(data);
+          } else {
+            deferred.reject();
+          }
+        })
+        .error(function(data) {
+          deferred.reject();
+        });
+        return deferred.promise;
+    }
+
+
     // return available functions for uses in controllers
     return ({
       addBook: addBook,
       removeBook: removeBook,
-      withdrawTrade: withdrawTrade
+      withdrawTrade: withdrawTrade,
+      acceptTrade: acceptTrade,
+      declineTrade: declineTrade,
     });
 }]);

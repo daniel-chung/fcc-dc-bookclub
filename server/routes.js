@@ -2,10 +2,12 @@
 'use strict';
 
 // Load packages ---------------------------------------------------------------
-var Books = require('./models/books');
-var Trades = require('./models/trades');
-var User = require('./models/user');
-var Userinfo = require('./models/userinfo');
+var request 	= require('request');
+
+var Books 		= require('./models/books');
+var Trades 		= require('./models/trades');
+var User 			= require('./models/user');
+var Userinfo 	= require('./models/userinfo');
 
 
 module.exports = function(app, passport) {
@@ -118,6 +120,7 @@ module.exports = function(app, passport) {
 
 	app.route('/setting/getinfo')
 		.get(function(req, res) {
+			console.log('getinto', req.user);
 			Userinfo.findOne({ 'username': req.user.username }, 
 				function(err, userinfo) {
 					if (err)
@@ -149,19 +152,31 @@ module.exports = function(app, passport) {
 			});
    });
 
+
+// Todo: synchronous calls seem to be broken
 	app.route('/books/add')
     .post(function(req, res) {
-			Books.findOne (
-				{ username: req.user.username, bookname: req.body.bookName },
-				function (err, book) {
-					if (err)
-						throw err;
-					else if (book)
-						res.json({ message: "Book already exists!" });
-					else {
+
+      var apiUrl = 'https://www.googleapis.com/books/v1/volumes?' +
+        'key=' + process.env.GOOGLE_BOOKS_API_KEY + 
+        '&maxResults=1' +
+        '&q=';
+
+      function queryBooksAPI(bookName) {
+      	var queryBookName = bookName.replace(/\s+/g, "+");
+
+	      console.log('API url', apiUrl);
+	      console.log('book name', req.body.bookName);
+
+				request(apiUrl+queryBookName, function (error, response, body) {
+				  if (!error && response.statusCode == 200) {
+				  	var bookResult = JSON.parse(body);
+				    var thumbnail = bookResult.items[0].volumeInfo.imageLinks.thumbnail;
+
 						var newBook = new Books();
 						newBook.bookname = req.body.bookName;
 						newBook.username = req.user.username;
+						newBook.thumbnail = thumbnail;
 						newBook.save(function(err) {
 							if (err) 
 								throw err;
@@ -173,6 +188,22 @@ module.exports = function(app, passport) {
 								}
 							});
 						});
+					}
+					else
+						res.json({ message: "Something went wrong!" });
+      	});
+      };
+
+
+			Books.findOne (
+				{ username: req.user.username, bookname: req.body.bookName },
+				function (err, book) {
+					if (err)
+						throw err;
+					else if (book)
+						res.json({ message: "Book already exists!" });
+					else {
+						queryBooksAPI(req.body.bookName);
 					}
 			});
 	});
@@ -203,6 +234,8 @@ module.exports = function(app, passport) {
 			});
 	});
 
+
+
 // Trade routes ----------------------------------------------------------------
 app.route('/trade/id/:bookid')
 	.get(function(req, res) {		//get for testing
@@ -231,6 +264,8 @@ app.route('/trade/id/:bookid')
 								newTrade.requester = req.user.username;
 								newTrade.owner = bookinfo.username;
 								newTrade.bookname = bookinfo.bookname;
+								newTrade.thumbnail = bookinfo.thumbnail;
+								newTrade.status = -1;
 								newTrade.save(function(err) {
 									if (err)
 										throw err;
@@ -248,7 +283,7 @@ app.route('/trade/id/:bookid')
 
 app.route('/trade/requested')
 	.get(function(req, res) {
-		Trades.find({ 'requester': req.user.username },
+		Trades.find({ 'requester': req.user.username, 'status': -1 },
 			function(err, trade) {
 
 				if (err)
@@ -264,7 +299,7 @@ app.route('/trade/requested')
 
 app.route('/trade/received')
 	.get(function(req, res) {
-		Trades.find({ 'owner': req.user.username },
+		Trades.find({ 'owner': req.user.username, 'status': -1 },
 			function(err, trade) {
 				if (err)
 					throw err;
@@ -287,6 +322,35 @@ app.route('/trade/received')
         	res.end();
 			});
 	});
+
+	app.route('/trade/accept')
+    .post(function(req, res) {
+    	console.log('post trade/accept', req.body._id);
+			Trades.findOneAndUpdate(
+				{ _id: req.body._id }, 
+				{ status: 1 },
+				{ upsert: false},
+				function(err, doc){
+			    if (err) 
+			    	return res.send(500, { error: err });
+			    return res.end();
+			});
+	});
+
+	app.route('/trade/decline')
+    .post(function(req, res) {
+    	console.log('post trade/decline', req.body._id);
+			Trades.findOneAndUpdate(
+				{ _id: req.body._id }, 
+				{ status: 0 },
+				{ upsert: false},
+				function(err, doc){
+			    if (err) 
+			    	return res.send(500, { error: err });
+			    return res.end();
+			});
+	});
+
 
 };
 

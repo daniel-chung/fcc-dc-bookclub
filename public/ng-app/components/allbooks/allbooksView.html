@@ -13,20 +13,28 @@
 <!-- Show all books -->
 <br>
 <div class="row">
-<div ng-repeat="book in allbooks" class="book-collection">
+<div ng-repeat="book in allbooks" ng-if="allbooks.length > 0" class="book-collection">
   <div class="book">
 
 <!-- TODO: need to show a window pane to select books offered for trade -->
 
-    <div ng-click="trade()"
-    				class="btn btn-default btn-sm bc-trade-btn" 
-    				ng-disabled="disabled">
-      Trade
+    <div class="bc-trade-btn">
+      <div ng-click="trade()"
+      				class="btn" 
+      				ng-disabled="disabled">
+        <i class="fa fa-exchange fa-lg"></i>
+      </div>
     </div>
+
+
     </form>
 
+    <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" class="book-img">
+    <!--
   	<p>{{ book.bookname }}</p>
   	<p>{{ book.username }}</p>
+    -->
+
   </div>
 </div>
 </div>

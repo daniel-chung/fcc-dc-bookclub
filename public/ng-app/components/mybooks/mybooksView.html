@@ -51,12 +51,15 @@
 
 <!-- Show user's books -->
 <div class="row">
-<div ng-repeat="book in userbooks" class="book-collection" 
+<div ng-repeat="book in userbooks" ng-if="userbooks.length > 0" class="book-collection" 
      ng-controller="myBooksUpdateController">
   <div class="book">
-    <div ng-click="removeBook()" class="btn btn-default btn-sm bc-trade-btn"
-         ng-disabled="disabled">remove</div>
-    <p>{{ book.bookname }}</p>
+    <div class="bc-trade-btn">
+      <div ng-click="removeBook()" class="btn"
+           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
+    </div>
+
+    <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" class="book-img">
   </div>
 </div>
 </div>
@@ -74,13 +77,15 @@
 </div>
 
 <div class="row">
-<div ng-repeat="tradereq in tradesrequested" class="book-collection"
+<div ng-repeat="tradereq in tradesrequested" ng-if="tradesrequested.length > 0" class="book-collection"
      ng-controller="myBooksUpdateController">
   <div class="book tradereq">
-    <div ng-click="withdrawTrade()" class="btn btn-default btn-sm bc-trade-btn"
-         ng-disabled="disabled">withdraw</div>
-    <p>{{ tradereq.bookname }}</p>
-    <p>Owner: {{ tradereq.owner }}</p>
+    <div class="bc-trade-btn">
+      <div ng-click="withdrawTrade()" class="btn"
+           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
+    </div>
+
+    <img ng-src="{{ tradereq.thumbnail }}" alt="{{ tradereq.bookname }}" class="book-img">
   </div>
 </div>
 </div>
@@ -92,17 +97,18 @@
 </div>
 
 <div class="row">
-<div ng-repeat="traderec in tradesreceived" class="book-collection"
+<div ng-repeat="traderec in tradesreceived" ng-if="tradesreceived.length > 0" 
+     class="book-collection book-traderecs"
      ng-controller="myBooksUpdateController">
   <div class="book traderec">
     <div class="bc-btn-row bc-trade-btn">
-      <div ng-click="acceptTrade()" class="btn btn-default btn-sm "
-           ng-disabled="disabled">accept</div>
-      <div ng-click="declineTrade()" class="btn btn-default btn-sm "
-           ng-disabled="disabled">deny</div>
+      <div ng-click="acceptTrade()" class="btn"
+           ng-disabled="disabled"><i class="fa fa-check fa-lg"></i></div>
+      <div ng-click="declineTrade()" class="btn"
+           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
     </div>
-    <p>{{ traderec.bookname }}</p>
-    <p>From: {{ traderec.requester }}</p>
+    <img ng-src="{{ traderec.thumbnail }}" alt="{{ traderec.bookname }}" class="book-img">
+
   </div>
 </div>
 </div>
