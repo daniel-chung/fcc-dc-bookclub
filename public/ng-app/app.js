@@ -1,3 +1,4 @@
+// /public/ng-app/shared/app.js
 'use strict';
 
 // Declare app level module which depends on views, and components
@@ -5,7 +6,6 @@ angular.module('bookClubApp', [
 	'ngRoute',
 	'bookClubApp.headerView',
 	'bookClubApp.homeView',
-	'bookClubApp.aboutView',
 	'bookClubApp.loginView',
 	'bookClubApp.registerView',
 	'bookClubApp.mybooksView',

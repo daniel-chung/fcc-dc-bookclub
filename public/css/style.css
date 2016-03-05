@@ -1,24 +1,47 @@
 
+/* Styles common to all views ----------------------------------------------- */
+
 body {
 	font-size: 14px;
+	padding-top: 80px; 	/* Adjusts for the fixed header */
 }
 
-div.hl {
+div.hl {	/* define styles for a horizonal line */
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	border-bottom: 1px solid black;
 }
 
+.jumbotron {
+	color: #31708f;
+	background-color: #d9edf7;
+}
+
+		/* Change angular's ng-click button to poitner  ------------------------- */
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+.font-center {
+	text-align: center;
+}
+
+
+
+/* 00. All Books objects ---------------------------------------------------- */
+
 .book-collection {
   margin: auto;
   text-align:center;
   display: inline-block;	
 }
+
 .book {
 	padding: 0.25em;
 	margin: 0.5em;
-	/* border: 1px solid red; */
   text-align:left;
 }
 
@@ -27,31 +50,23 @@ div.hl {
 	height: 12em;	
 }
 
-
-
-.bc-trade-btn {
+.bc-trade-btn { 				/* Hides buttons on books to start */
 	visibility: hidden;		/* search google for the actual hidden value; also overlay */
 	position: absolute;
   display: inline-block;	
   z-index: 100;
 }
 
-
-
-/* Trade request approval/rejection */
-.book:hover img {
+.book:hover img { 					/* Grey out image on hover */
    -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
   filter: grayscale(100%);
 }
 
-/* Show action buttons */
-.book:hover .bc-trade-btn {
+.book:hover .bc-trade-btn { /* Shows buttons on hover */
 	visibility: visible;
 }
 
-
-
-/* Icons -------------------------------------------------------------------- */
+		/* Book hover button icon colors  --------------------------------------- */
 .fa-check {
 	color: #2FFB95;
 }
@@ -63,16 +78,40 @@ div.hl {
 }
 
 
-.userinfo-values {
-	margin: 2em;
+
+/* 0. Bootstrap colors ------------------------------------------------- */
+/* http://work.smarchal.com/twbscolor/scss/d9edf7bce8f131708f2b576d0 --- */
+
+.navbar-default {
+  background-color: #FFF;
+  border-color: #bce8f1;
 }
+.navbar-default .navbar-brand {
+  color: #31708f;
+}
+.navbar-default .navbar-text {
+  color: #31708f;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #31708f;
+}
+
+
+/* 1. Home page speciic styles ---------------------------------------------- */
+
+.home-text {
+	color: #31708f;
+}
+
+
+
+
+/* 2. Setting page speciic styles ------------------------------------------- */
+
 .userinfo-values b {
 	font-size: 1.1em;
 	font-weight: 800;
 }
 
-[ng-click],
-[data-ng-click],
-[x-ng-click] {
-    cursor: pointer;
-}
+
+/* EOF ---------------------------------------------------------------------- */

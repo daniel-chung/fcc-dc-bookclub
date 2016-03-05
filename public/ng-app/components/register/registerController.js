@@ -1,3 +1,4 @@
+// /public/ng-app/components/register/registerController.js
 'use strict';
 
 (function(angular) {

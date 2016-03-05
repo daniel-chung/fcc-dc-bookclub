@@ -1,4 +1,4 @@
-<!-- /public/views/home.html -->
+<!-- /public/ng-app/components/mybooks/mybooksView.html -->
 
 <!-- ANGULAR DIRECTIVE HEADER -->
 <div header2></div>
@@ -9,107 +9,161 @@
   <h1>{{ section }}</h1>
   <p>{{ tagline }}</p>
 </div>
+<br>
+
 
 <!-- User information -->
 <div class="userinfo">
-  <h1>Profile information:</h1>
-  <h5>These setting can be changed in the <a href="#setting">setting</a> tab</h5>
+  <div class="row">
+  <div class="col-md-12">
+  <div class="panel panel-info">
 
-  <div class="userinfo-values">
+  <div class="panel-heading">
+    <h4>Profile information:</h4>
+  </div>
+
+  <div class="panel-body">
     <p><b>First name: </b>{{ userinfo.firstname }}</p>
     <p><b>Last name: </b>{{ userinfo.lastname }}</p>
     <p><b>City: </b>{{ userinfo.city }}</p>
     <p><b>State: </b>{{ userinfo.state }}</p>
   </div>
-</div>
 
+  <div class="panel-footer">
+    These setting can be changed in the <a href="#setting">setting</a> tab
+  </div>
+
+  </div>
+  </div>
+  </div>
+</div> <!-- End User information -->
 <br>
-<div class="hl"></div>
-<br>
+
 
 <!-- Books -->
-<div>
-  <h1>My Books:</h1>
-</div>
-
-<!-- Add new books -->
 <div class="row">
-<div class="col-md-4">
-  <form class="form-inline" ng-controller="myBooksUpdateController" 
-        ng-submit="addBook()">
-    <div class="form-group">
-      <input type="text" class="form-control" name="add-book" 
-             ng-model="addNewBook.bookname" placeholder="Add Book" required>
-      <button type="submit" class="btn btn-default" ng-disabled="disabled">
-        Add
-      </button>
-    </div>
-  </form>
-</div>
-</div>
-<br>
+<div class="col-md-12">
+<div class="panel panel-info">
 
-<!-- Show user's books -->
-<div class="row">
-<div ng-repeat="book in userbooks" ng-if="userbooks.length > 0" class="book-collection" 
-     ng-controller="myBooksUpdateController">
-  <div class="book">
-    <div class="bc-trade-btn">
-      <div ng-click="removeBook()" class="btn"
-           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
-    </div>
-
-    <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" class="book-img">
+  <div class="panel-heading">
+    <h4>My books:</h4>
   </div>
+
+  <div class="panel-body">
+
+    <!-- Add new books -->
+    <div class="row">
+    <div class="col-md-4">
+      <form class="form-inline" ng-controller="myBooksUpdateController" 
+            ng-submit="addBook()">
+      <div class="form-group">
+        <input type="text" class="form-control" name="add-book" 
+               ng-model="addNewBook.bookname" placeholder="Add Book" required>
+        <button type="submit" class="btn btn-default" ng-disabled="disabled">
+          Add
+        </button>
+      </div>
+      </form>
+    </div>
+    </div>
+    <br>    
+
+    <!-- Show user's books -->
+    <div class="row">
+    <div ng-repeat="book in userbooks" ng-if="userbooks.length > 0"
+         class="book-collection" ng-controller="myBooksUpdateController">
+      <div class="book">
+        <div class="bc-trade-btn">
+        <div ng-click="removeBook()" class="btn"
+             ng-disabled="disabled">
+          <i class="fa fa-times fa-lg"></i>
+        </div>
+        </div>
+
+        <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" 
+             class="book-img">
+      </div>
+    </div>
+    </div>
+
+  </div>
+
 </div>
 </div>
-
-
+</div> <!-- End Books -->
 <br>
-<div class="hl"></div>
-<br>
+
 
 <!-- Trades -->
-
-<!-- 1. User's requested trades -->
-<div>
-  <h1>Trade offers requested:</h1>
-</div>
-
 <div class="row">
-<div ng-repeat="tradereq in tradesrequested" ng-if="tradesrequested.length > 0" class="book-collection"
-     ng-controller="myBooksUpdateController">
-  <div class="book tradereq">
-    <div class="bc-trade-btn">
-      <div ng-click="withdrawTrade()" class="btn"
-           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
-    </div>
 
-    <img ng-src="{{ tradereq.thumbnail }}" alt="{{ tradereq.bookname }}" class="book-img">
+  <!-- 1. User's requested trades -->
+  <div class="col-md-6">
+  <div class="panel panel-info">
+
+  <div class="panel-heading">
+    <h4>Trade offers requested:</h4>
   </div>
-</div>
-</div>
 
+  <div class="panel-body">
+    <div class="row">
+    <div ng-repeat="tradereq in tradesrequested" 
+         ng-if="tradesrequested.length > 0" 
+         class="book-collection"
+         ng-controller="myBooksUpdateController">
+      <div class="book tradereq">
+        <div class="bc-trade-btn">
+        <div ng-click="withdrawTrade()" class="btn"
+             ng-disabled="disabled">
+          <i class="fa fa-times fa-lg"></i>
+        </div>
+        </div>
 
-<!-- 2. Show user's received trades -->
-<div>
-  <h1>Trade offers received:</h1> 
-</div>
-
-<div class="row">
-<div ng-repeat="traderec in tradesreceived" ng-if="tradesreceived.length > 0" 
-     class="book-collection book-traderecs"
-     ng-controller="myBooksUpdateController">
-  <div class="book traderec">
-    <div class="bc-btn-row bc-trade-btn">
-      <div ng-click="acceptTrade()" class="btn"
-           ng-disabled="disabled"><i class="fa fa-check fa-lg"></i></div>
-      <div ng-click="declineTrade()" class="btn"
-           ng-disabled="disabled"><i class="fa fa-times fa-lg"></i></div>
+        <img ng-src="{{ tradereq.thumbnail }}" alt="{{ tradereq.bookname }}" 
+             class="book-img">
+      </div>
     </div>
-    <img ng-src="{{ traderec.thumbnail }}" alt="{{ traderec.bookname }}" class="book-img">
+    </div>
+  </div>
 
   </div>
-</div>
-</div>
+  </div>
+
+  <!-- 2. Show user's received trades -->
+  <div class="col-md-6">
+  <div class="panel panel-info">
+
+    <div class="panel-heading">
+      <h4>Trade offers received:</h4>
+    </div>
+
+    <div class="panel-body">
+    <div class="row">
+    <div ng-repeat="traderec in tradesreceived" 
+         ng-if="tradesreceived.length > 0" 
+         class="book-collection book-traderecs"
+         ng-controller="myBooksUpdateController">
+      <div class="book traderec">
+        <div class="bc-btn-row bc-trade-btn">
+          <div ng-click="acceptTrade()" class="btn"
+               ng-disabled="disabled">
+            <i class="fa fa-check fa-lg"></i>
+          </div>
+          <div ng-click="declineTrade()" class="btn"
+               ng-disabled="disabled">
+            <i class="fa fa-times fa-lg"></i>
+          </div>
+        </div>
+
+        <img ng-src="{{ traderec.thumbnail }}" alt="{{ traderec.bookname }}"
+             class="book-img">
+      </div>
+    </div>
+    </div>
+    </div>
+
+  </div>
+  </div>
+
+</div> <!-- End Trades -->
 

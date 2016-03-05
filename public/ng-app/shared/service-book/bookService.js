@@ -1,3 +1,5 @@
+// /public/ng-app/shared/service-book/bookService.js
+'use strict';
 
 
 // Create BookService factory --------------------------------------------------

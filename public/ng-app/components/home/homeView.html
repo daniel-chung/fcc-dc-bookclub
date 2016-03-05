@@ -1,4 +1,4 @@
-<!-- /ng-app/components/home/homeView.html -->
+<!-- /public/ng-app/components/home/homeView.html -->
 
 <!-- ANGULAR DIRECTIVE HEADER -->
 <div ng-controller="headerController">
@@ -10,9 +10,82 @@
 	</div>
 </div>
 
+
 <!-- Jumbotron message -->
 <div class="jumbotron text-center">
 	<h1>{{ section }}</h1>
+	<i class="fa fa-book fa-4x"></i>
+	<br><br>
 	<p>{{ tagline }}</p>
 </div>
+<br>
+
+
+<!-- Features -->
+<div class="home-text">
+	<h2>Features:	</h2>
+	<br>
+
+	<div class="row">
+
+	<!-- Feature section 1 -->
+	<div class="col-md-6">
+	<div class="panel panel-info home-text-section">
+	  <div class="panel-heading">Catalogue your books online</div>
+	  
+	  <div class="panel-body">
+	  	<ul>
+	  		<li>Search for books that you own offline</li>
+	  		<li>Store the list online with book covers</li>
+	  	</ul>
+	  </div>
+  </div>
+  </div>
+
+	<!-- Feature section 2 -->
+	<div class="col-md-6">
+	<div class="panel panel-info home-text-section">
+	  <div class="panel-heading">Easily manage books and requests from your dashboard</div>
+
+	  <div class="panel-body">
+	  	<ul>
+	  		<li>See all of the requests you've received and approve or reject</li>
+	  		<li>See all of the trades you've requested and withdraw if you are no longer interested</li>
+	  	</ul>
+	  </div>
+  </div>
+ 	</div>
+
+ </div>
+ <div class="row">
+
+ 	<!-- Feature section 3 -->
+	<div class="col-md-6">
+	<div class="panel panel-info home-text-section">
+	  <div class="panel-heading">See all of the books that users own</div>
+
+	  <div class="panel-body">
+	  	<ul>
+	  		<li>You can request to trade any user's books</li>
+	  	</ul>
+	  </div>
+  </div>
+	</div>
+
+ 	<!-- Feature section 4 -->
+	<div class="col-md-6">
+	<div class="panel panel-info home-text-section">
+	  <div class="panel-heading">Request to borrow other users' books</div>
+
+	  <div class="panel-body">
+	  	<ul>
+	  		<li>One click interface for requesting trades</li>
+	  	</ul>
+	  </div>
+  </div>
+	</div>
+
+	</div>
+</div> <!-- End Features -->
+
 

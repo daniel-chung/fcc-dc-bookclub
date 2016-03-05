@@ -1,4 +1,4 @@
-// app/models/books.js
+// /server/models/books.js
 'use strict';
 
 // Load packages ---------------------------------------------------------------

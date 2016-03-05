@@ -1,4 +1,4 @@
-// config/passport.js
+// /public/ng-app/shared/service-auth/authService.js
 'use strict';
 
 

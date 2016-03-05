@@ -1,3 +1,5 @@
+// /public/ng-app/components/home/homeController.js
+
 'use strict';
 
 (function(angular) {

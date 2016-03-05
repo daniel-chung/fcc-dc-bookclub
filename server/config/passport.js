@@ -1,4 +1,4 @@
-// config/passport.js
+// /server/config/passport.js
 'use strict';
 
 // Load packages ---------------------------------------------------------------

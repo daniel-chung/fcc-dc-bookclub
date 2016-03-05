@@ -1,35 +1,49 @@
-<!-- /ng-app/components/register/registerView.html -->
+<!-- /public/ng-app/components/register/registerView.html -->
 
 <!-- ANGULAR DIRECTIVE HEADER -->
 <div ng-controller="headerController">
-    <div header1></div>
+  <div header1></div>
 </div>
+
 
 <!-- Jumbotron message -->
 <div class="jumbotron text-center">
   <h1>{{ section }}</h1>
   <p>{{ tagline }}</p>
 </div>
+<br>
+
 
 <!-- Registration form -->
-<div class="col-md-4">
-  <h1>Register</h1>
+<div class="col-md-8 col-md-offset-2">
   <div ng-show="error" class="alert alert-danger"></div>
-  <form class="form" ng-submit="register()">
-    <div class="form-group">
-      <label>Username</label>
+
+  <form class="form " ng-submit="register()">
+    <!-- User name -->
+    <div class="form-group row">
+    <div class="col-md-8 col-md-offset-2">
       <input type="text" class="form-control" name="username" 
-             ng-model="registerForm.username" required>
+             placeholder="Username" ng-model="registerForm.username" required>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-        <input type="password" class="form-control" name="password"
-               ng-model="registerForm.password" required>
     </div>
-    <div>
+
+    <!-- Password -->
+    <div class="form-group row">
+    <div class="col-md-8 col-md-offset-2">
+      <input type="password" class="form-control" name="password" 
+             placeholder="Password" ng-model="registerForm.password" required>
+    </div>
+    </div>
+
+    <!-- Register buttong -->
+    <div class="form-group row">
+    <div class="col-md-offset-2 col-md-8">
       <button type="submit" class="btn btn-default" ng-disabled="disabled">
         Register
       </button>
     </div>
+    </div>
+
   </form>
 </div>
+

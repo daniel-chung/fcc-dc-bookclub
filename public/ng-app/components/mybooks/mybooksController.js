@@ -1,3 +1,4 @@
+// /public/ng-app/components/mybooks/mybooksController.js
 'use strict';
 
 (function(angular) {

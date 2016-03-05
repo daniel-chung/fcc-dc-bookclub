@@ -1,4 +1,4 @@
-// /app/routes.js
+// /server/routes.js
 'use strict';
 
 // Load packages ---------------------------------------------------------------

@@ -1,3 +1,4 @@
+// /public/ng-app/shared/header/header.js
 'use strict';
 
 (function(angular) {

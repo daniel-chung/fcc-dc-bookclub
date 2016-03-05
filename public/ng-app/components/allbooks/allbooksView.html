@@ -1,4 +1,4 @@
-<!-- /public/views/home.html -->
+<!-- /public/ng-app/components/allbooks/allbooksView.html -->
 
 <!-- ANGULAR DIRECTIVE HEADER -->
 <div header2></div>
@@ -9,32 +9,25 @@
   <h1>{{ section }}</h1>
   <p>{{ tagline }}</p>
 </div>
+<br>
 
 <!-- Show all books -->
-<br>
 <div class="row">
-<div ng-repeat="book in allbooks" ng-if="allbooks.length > 0" class="book-collection">
+<div ng-repeat="book in allbooks" ng-if="allbooks.length > 0" 
+     class="book-collection">
+
   <div class="book">
-
-<!-- TODO: need to show a window pane to select books offered for trade -->
-
     <div class="bc-trade-btn">
-      <div ng-click="trade()"
-      				class="btn" 
-      				ng-disabled="disabled">
-        <i class="fa fa-exchange fa-lg"></i>
-      </div>
+    <div ng-click="trade()"
+    				class="btn" 
+    				ng-disabled="disabled">
+      <i class="fa fa-exchange fa-lg"></i>
+    </div>
     </div>
 
-
-    </form>
-
-    <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" class="book-img">
-    <!--
-  	<p>{{ book.bookname }}</p>
-  	<p>{{ book.username }}</p>
-    -->
-
+    <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" 
+         class="book-img">
   </div>
+
 </div>
 </div>

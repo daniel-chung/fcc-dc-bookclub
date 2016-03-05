@@ -1,3 +1,4 @@
+// /public/ng-app/components/logout/logoutController.js
 'use strict';
 
 (function(angular) {

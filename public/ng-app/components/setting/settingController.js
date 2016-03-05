@@ -1,3 +1,5 @@
+// /public/ng-app/components/setting/settingController.js
+
 /**
  * TODO: Allow password changes 
  */

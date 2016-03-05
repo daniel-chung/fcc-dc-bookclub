@@ -1,4 +1,4 @@
-// config/passport.js
+// /public/ng-app/shared/service-userinfo/userinfoService.js
 'use strict';
 
 

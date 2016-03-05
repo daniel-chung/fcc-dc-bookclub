@@ -1,4 +1,4 @@
-// app/models/trades.js
+// /server/models/trades.js
 'use strict';
 
 // Load packages ---------------------------------------------------------------

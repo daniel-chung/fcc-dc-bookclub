@@ -1,3 +1,4 @@
+// /public/ng-app/components/login/loginController.js
 'use strict';
 
 (function(angular) {
@@ -27,11 +28,12 @@
           $scope.disabled = true;
 
           // call login from service
-          AuthService.login($scope.loginForm.username, $scope.loginForm.password)
+          AuthService.login($scope.loginForm.username, 
+                            $scope.loginForm.password)
 
           // handle success
           .then(function () {
-            $location.path('/');
+            $location.path('/mybooks');
             $scope.disabled = false;
             $scope.loginForm = {};
           })

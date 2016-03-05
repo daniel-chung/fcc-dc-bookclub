@@ -1,31 +1,48 @@
-<!-- /ng-app/components/login/loginView.html -->
+<!-- /public/ng-app/components/login/loginView.html -->
 
 <!-- ANGULAR DIRECTIVE HEADER -->
 <div ng-controller="headerController">
-    <div header1></div>
+  <div header1></div>
 </div>
+
 
 <!-- Jumbotron message -->
 <div class="jumbotron text-center">
   <h1>{{ section }}</h1>
   <p>{{ tagline }}</p>
 </div>
+<br>
+
 
 <!-- Login form -->
-<div class="col-md-4">
-  <h1>Login</h1>
+<div class="col-md-8 col-md-offset-2">
   <div ng-show="error" class="alert alert-danger"></div>
-  <form class="form" ng-submit="login()">
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
+
+  <form class="form " ng-submit="login()">
+    <!-- User name -->
+    <div class="form-group row">
+    <div class="col-md-8 col-md-offset-2">
+      <input type="text" class="form-control" name="username" 
+             placeholder="Username" ng-model="loginForm.username" required>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
     </div>
-    <div>
-      <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
+
+    <!-- Password -->
+    <div class="form-group row">
+    <div class="col-md-8 col-md-offset-2">
+      <input type="password" class="form-control" name="password" 
+             placeholder="Password" ng-model="loginForm.password" required>
     </div>
+    </div>
+
+    <!-- Login button -->
+    <div class="form-group row">
+    <div class="col-md-offset-2 col-md-8">
+      <button type="submit" class="btn btn-default" ng-disabled="disabled">
+        Login
+      </button>
+    </div>
+    </div>
+
   </form>
 </div>

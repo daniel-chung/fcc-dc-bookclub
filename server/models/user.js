@@ -1,4 +1,4 @@
-// app/models/user.js
+// /server/models/user.js
 'use strict';
 
 // Load packages ---------------------------------------------------------------
