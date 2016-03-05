@@ -7,6 +7,7 @@ angular.module('bookClubApp').factory('BookService',
 
     function addBook(bookName) {
       var deferred = $q.defer();
+      
       $http.post('/books/add', {bookName: bookName})
         .success(function(data, status) {
           if (status === 200 && data.status) {
@@ -19,7 +20,8 @@ angular.module('bookClubApp').factory('BookService',
         .error(function(data) {
           deferred.reject();
         });
-        return deferred.promise;
+
+      return deferred.promise;
     }
 
     function removeBook(bookId) {
