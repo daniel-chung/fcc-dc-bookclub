@@ -124,7 +124,8 @@ module.exports = function(app, passport) {
 
 	app.route('/setting/getinfo')
 		.get(function(req, res) {
-			console.log('getinto', req.session);
+			console.log('getinto', req);
+			console.log('getinto session', req.session);
 			Userinfo.findOne({ 'username': req.user.username }, 
 				function(err, userinfo) {
 					if (err)
