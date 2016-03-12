@@ -124,7 +124,7 @@ module.exports = function(app, passport) {
 
 	app.route('/setting/getinfo')
 		.get(function(req, res) {
-			console.log('getinto', req.user);
+			console.log('getinto', req.session);
 			Userinfo.findOne({ 'username': req.user.username }, 
 				function(err, userinfo) {
 					if (err)
@@ -143,9 +143,9 @@ module.exports = function(app, passport) {
 	// Books routes --------------------------------------------------------------
 	app.route('/books/user')
     .get(function(req, res) {
-			console.log('books/user', req.session.user);
+			console.log('books/user', req.user);
 			Books.find (
-				{ username: req.session.user.username },
+				{ username: req.user.username },
 				function (err, books) {
 					if (err)
 						throw err;
