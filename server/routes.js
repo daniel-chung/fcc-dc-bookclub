@@ -143,9 +143,9 @@ module.exports = function(app, passport) {
 	// Books routes --------------------------------------------------------------
 	app.route('/books/user')
     .get(function(req, res) {
-			console.log(req.user);
+			console.log('books/user', req.session.user);
 			Books.find (
-				{ username: req.user.username },
+				{ username: req.session.user.username },
 				function (err, books) {
 					if (err)
 						throw err;
