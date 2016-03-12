@@ -42,54 +42,89 @@
 
 <!-- Books -->
 <div class="row">
-<div class="col-md-12">
-<div class="panel panel-info">
+  <!-- 1. My Books -->
+  <div class="col-md-8">
+  <div class="panel panel-info">
+
+    <div class="panel-heading">
+      <h4>My books:</h4>
+    </div>
+
+    <div class="panel-body">
+
+      <!-- Add new books -->
+      <div class="row">
+      <div class="col-md-4">
+        <form class="form-inline" ng-controller="myBooksUpdateController" 
+              ng-submit="addBook()">
+        <div class="form-group">
+          <input type="text" class="form-control" name="add-book" 
+                 ng-model="addNewBook.bookname" placeholder="Add Book" required>
+          <button type="submit" class="btn btn-default" ng-disabled="disabled">
+            Add
+          </button>
+        </div>
+        </form>
+      </div>
+      </div>
+      <br>    
+
+      <!-- Show user's books -->
+      <div class="row">
+      <div ng-repeat="book in userbooks" ng-if="userbooks.length > 0"
+           class="book-collection" ng-controller="myBooksUpdateController">
+        <div class="book">
+          <div class="bc-trade-btn">
+          <div ng-click="removeBook()" class="btn"
+               ng-disabled="disabled">
+            <i class="fa fa-times fa-lg"></i>
+          </div>
+          </div>
+
+          <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" 
+               class="book-img">
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+  </div>
+  </div> <!-- End 1. My books -->
+
+  <!-- 2. Borrowed books -->
+  <div class="col-md-4">
+  <div class="panel panel-info">
 
   <div class="panel-heading">
-    <h4>My books:</h4>
+    <h4>Borrowed books:</h4>
   </div>
 
   <div class="panel-body">
-
-    <!-- Add new books -->
     <div class="row">
-    <div class="col-md-4">
-      <form class="form-inline" ng-controller="myBooksUpdateController" 
-            ng-submit="addBook()">
-      <div class="form-group">
-        <input type="text" class="form-control" name="add-book" 
-               ng-model="addNewBook.bookname" placeholder="Add Book" required>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">
-          Add
-        </button>
-      </div>
-      </form>
-    </div>
-    </div>
-    <br>    
-
-    <!-- Show user's books -->
-    <div class="row">
-    <div ng-repeat="book in userbooks" ng-if="userbooks.length > 0"
-         class="book-collection" ng-controller="myBooksUpdateController">
-      <div class="book">
+    <div ng-repeat="borrowedbook in borrowedbooks" 
+         class="book-collection"
+         ng-controller="myBooksUpdateController">
+      <div class="book borrowedbook">
         <div class="bc-trade-btn">
-        <div ng-click="removeBook()" class="btn"
+        <!-- TODO() -->
+        <div ng-click="returnBook()" class="btn"
              ng-disabled="disabled">
-          <i class="fa fa-times fa-lg"></i>
+          <i class="fa fa-retweet fa-lg"></i>
         </div>
         </div>
 
-        <img ng-src="{{ book.thumbnail }}" alt="{{ book.bookname }}" 
+        <img ng-src="{{ borrowedbook.thumbnail }}" alt="{{ borrowedbook.bookname }}" 
              class="book-img">
       </div>
     </div>
     </div>
-
   </div>
 
-</div>
-</div>
+  </div>
+  </div> <!-- End 2. Borrowed books -->
+
+
 </div> <!-- End Books -->
 <br>
 

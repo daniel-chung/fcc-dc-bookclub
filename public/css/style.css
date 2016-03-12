@@ -76,7 +76,9 @@ div.hl {	/* define styles for a horizonal line */
 .fa-exchange {
 	color: #EB2457;
 }
-
+.fa-retweet {
+	color: #F08080;
+}
 
 
 /* 0. Bootstrap colors ------------------------------------------------- */

@@ -93,6 +93,24 @@ angular.module('bookClubApp').factory('BookService',
         return deferred.promise;
     }
 
+    function returnBook(tradeId) {
+      var deferred = $q.defer();
+      $http.post('/trade/return', { _id: tradeId})
+        .success(function(data, status) {
+          if (status === 200) {
+            console.log('returnBook service', data);
+            deferred.resolve(data);
+          }
+          else {
+            deferred.reject();
+          }
+        })
+        .error(function(data) {
+          deferred.reject();
+        });
+        return deferred.promise;
+    }
+
 
     // return available functions for uses in controllers
     return ({
@@ -101,5 +119,6 @@ angular.module('bookClubApp').factory('BookService',
       withdrawTrade: withdrawTrade,
       acceptTrade: acceptTrade,
       declineTrade: declineTrade,
+      returnBook: returnBook,
     });
 }]);

@@ -17,15 +17,16 @@
   angular
     .module('bookClubApp.allbooksView')
     .controller('allbooksController',
-      ['$scope', '$http', '$location', 'BookService', 
-      function ($scope, $http, $location, BookService) {
+      ['$scope', '$http', '$location', 'UserinfoService', 
+      function ($scope, $http, $location, UserinfoService) {
         $scope.section = "All Books";
         $scope.tagline = 'Here are all of the books!';
+
 
         // Function to initiate trade
         $scope.trade = function() {
           var targetBookId = this.book._id;
-          //console.log("selected:", targetBookId);
+          console.log("selected:", targetBookId);
           $http.get('/trade/id/' + targetBookId)
             .success(function(){
               $location.path('/mybooks');
@@ -33,23 +34,15 @@
             .error(function(){
               // handle error
             });
-
-          /**
-           * Create a trade model
-           *  : store book id & the initiator's name
-           *  : surface these trades on user profile page
-           *  : give an option to accept/reject
-           *  --> accept: update book model
-           *  --> reject: delete trade model
-           */
-
         };
+
 
 
         // On load, retrieve data
         $http.get('/books/all')
           .success(function(data, status, headers, config) {
-            $scope.allbooks = data;
+            $scope.allbooks = data.books;
+            $scope.username = data.username;
           })
           .error(function(data, status, headers, config) {
           // log error

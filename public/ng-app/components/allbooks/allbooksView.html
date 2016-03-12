@@ -17,7 +17,7 @@
      class="book-collection">
 
   <div class="book">
-    <div class="bc-trade-btn">
+    <div ng-if="book.username !== username" class="bc-trade-btn">
     <div ng-click="trade()"
     				class="btn" 
     				ng-disabled="disabled">

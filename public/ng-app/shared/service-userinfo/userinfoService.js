@@ -15,7 +15,7 @@ angular.module('bookClubApp').factory('UserinfoService',
           lastname: lastname 
         })
         .success(function (data, status) {
-          if (status === 200 && data.status) {
+          if (status === 200) { // && data.status) {
             deferred.resolve();
           } else {
             deferred.reject();
@@ -36,7 +36,7 @@ angular.module('bookClubApp').factory('UserinfoService',
           state: newstate 
         })
         .success(function (data, status) {
-          if (status === 200 && data.status) {
+          if (status === 200) {
             deferred.resolve();
           } else {
             deferred.reject();
@@ -53,7 +53,23 @@ angular.module('bookClubApp').factory('UserinfoService',
       $http.get('/setting/getinfo')
         .success(function (data, status) {
           console.log("userinfoservice getUserInfo", data);
-          if (status === 200 && data.status)
+          if (status === 200)
+            deferred.resolve(data);
+          else
+            deferred.reject();
+        })
+        .error(function (data) {
+          deferred.reject();
+        });
+        return deferred.promise;
+    };
+
+    function getUserName() {
+      var deferred = $q.defer();
+      $http.get('/setting/username')
+        .success(function (data, status) {
+          console.log('getuser', status, data);
+          if (status === 200)
             deferred.resolve(data);
           else
             deferred.reject();
@@ -68,7 +84,8 @@ angular.module('bookClubApp').factory('UserinfoService',
     return ({
       updateFullname: updateFullname,
       updateLocation: updateLocation,
-      getUserInfo: getUserInfo
+      getUserInfo: getUserInfo,
+      getUserName: getUserName
     });
 }]);
 

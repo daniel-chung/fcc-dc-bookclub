@@ -16,7 +16,7 @@ var tradesSchema = mongoose.Schema({
   status 		: Number,
   thumbnail	: String
 });
-	// Status: { -1: pending, 0: rejected, 1: approved}
+	// Status: { -1: pending, 0: rejected, 1: approved, 2: returned }
 
 
 // Export ----------------------------------------------------------------------

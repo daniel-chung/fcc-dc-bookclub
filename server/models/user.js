@@ -4,18 +4,30 @@
 // Load packages ---------------------------------------------------------------
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-var plm      = require('passport-local-mongoose');
+//var plm      = require('passport-local-mongoose');
 
 
 // Define User model schema ----------------------------------------------------
 var userSchema = mongoose.Schema({
     username  : String,
-    password  : String
+    password  : String,
 });
 
 
+
+// Methods ---------------------------------------------------------------------
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+
 // Plugin and Export -----------------------------------------------------------
-userSchema.plugin(plm);
 module.exports = mongoose.model('User', userSchema);
 
 

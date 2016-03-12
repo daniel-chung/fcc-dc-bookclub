@@ -46,6 +46,15 @@
             // log error
           });
 
+        // Your borrowed books
+        $http.get('/trade/borrowed').
+          success(function(data, status, headers, config) {
+            $scope.borrowedbooks = data;
+          }).
+          error(function(data, status, headers, config) {
+            // log error
+          });
+
         // Your requested trades
         $http.get('/trade/requested').
           success(function(data, status, headers, config) {
@@ -173,7 +182,25 @@
 
           $scope.disabled = false;
           $route.reload();
+        };
 
+    // returnBook()
+        $scope.returnBook = function () {
+          $scope.error = false;
+          $scope.disabled = true;
+
+          // call register from service
+          BookService.returnBook(this.borrowedbook._id)
+            .then(function (data) {     // <--- this doesn't seem to work.
+              console.log('returnBook controller', data);
+            })
+            .catch(function () {
+              $scope.error = true;
+              $scope.errorMessage = "Something went wrong!";
+            });
+
+          $scope.disabled = false;
+          $route.reload();
         };
 
     }]);

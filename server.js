@@ -40,7 +40,9 @@ app.use(session({
 
 
 // Passport setup --------------------------------------------------------------
-require('./server/config/passport')(app, passport);
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+require('./server/config/passport')(passport);
 
 
 // Routing links ---------------------------------------------------------------

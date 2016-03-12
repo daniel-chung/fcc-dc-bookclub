@@ -14,44 +14,48 @@ module.exports = function(app, passport) {
 
 	// User routes ---------------------------------------------------------------
 	app.route('/user/register')
-		.post(function(req, res) {
-			User.register(
-		    new User({ username: req.body.username }),
-		    req.body.password,
-		    function(err, account) {
-					if (err)
-						return res.status(500).json({err: err});
-					passport.authenticate('local')(req, res, function () {
-						return res.status(200).json({status: 'Registration successful!'})
-					});
-		    });
-	});
+		.post(
+			passport.authenticate('local-signup', 
+			{
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+  }));
 
 	app.route('/user/login')
-		.post(function(req, res, next) {
-			passport.authenticate('local', function(err, user, info) {
-				if (err) { return next(err) }
-				if (!user)
-					return res.status(401).json({err: info});
-				req.logIn(user, function(err) {
-					if (err)
-						return res.status(500).json({err: 'Could not log in user'});
-					res.status(200).json({status: 'Login successful!'})
-				});
-			})(req, res, next);
-	});
+		.post(
+			passport.authenticate('local-login', {
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+  }));
 
 	app.route('/user/logout')
 		.get(function(req, res) {
 			req.logout();
 			res.status(200).json({status: 'Bye!'})
-		});
+	});
+
+	app.route('/user/changepassword')
+		.post(
+			passport.authenticate('local-changepassword'), 
+			function(req, res) {
+				console.log('change success', req.user);
+				res.end();
+	});
 
 
 	// Setting routes ------------------------------------------------------------
 	app.route('/setting/password')
 		.post(function(req, res) {
 			res.end();
+	});
+
+	app.route('/setting/username')
+		.get(function(req, res) {
+			return res.json({
+				username: req.user.username
+			});
 	});
 
 	app.route('/setting/fullname')
@@ -116,7 +120,7 @@ module.exports = function(app, passport) {
 	          });						
 					}
 			});	
-		});
+	});
 
 	app.route('/setting/getinfo')
 		.get(function(req, res) {
@@ -133,7 +137,7 @@ module.exports = function(app, passport) {
 						return res.json({});
 					}
 			});
-		});
+	});
 
 
 	// Books routes --------------------------------------------------------------
@@ -150,7 +154,7 @@ module.exports = function(app, passport) {
 					else
 						res.end();
 			});
-   });
+  });
 
 
 // Todo: synchronous calls seem to be broken
@@ -208,7 +212,6 @@ module.exports = function(app, passport) {
 			});
 	});
 
-
 	app.route('/books/remove')
     .post(function(req, res) {
 			Books.remove (
@@ -228,7 +231,10 @@ module.exports = function(app, passport) {
 					if (err)
 						throw err;
           else if (books)
-          	res.json(books);
+          	res.json({
+          		username: req.user.username,
+          		books: books
+          	});
           else
           	res.end();
 			});
@@ -236,80 +242,76 @@ module.exports = function(app, passport) {
 
 
 
-// Trade routes ----------------------------------------------------------------
-app.route('/trade/id/:bookid')
-	.get(function(req, res) {		//get for testing
-		//console.log('in trade route', req.params.bookid);
-		Trades.findOne({ 'bookid': req.params.bookid },
-			function(err, trade) {
-
-				// TODO: Check to makes sure the book isn't one's own
-
-				if (err)
-					throw err;
-				else if (trade) {
-					console.log('Trade already exists!');
-					return res.end();
-				}
-				else {
-					var bookId = req.params.bookid;
-					// Find the book information
-					Books.findOne({ '_id': bookId },
-						function (err, bookinfo) {
-							if (err)
-								throw err;
-							else if (bookinfo) {
-								var newTrade = new Trades();
-								newTrade.bookid = bookId;
-								newTrade.requester = req.user.username;
-								newTrade.owner = bookinfo.username;
-								newTrade.bookname = bookinfo.bookname;
-								newTrade.thumbnail = bookinfo.thumbnail;
-								newTrade.status = -1;
-								newTrade.save(function(err) {
-									if (err)
-										throw err;
+	// Trade routes --------------------------------------------------------------
+	app.route('/trade/id/:bookid')
+		.get(function(req, res) {		//get for testing
+			Trades.findOne({ 'bookid': req.params.bookid },
+				function(err, trade) {
+					if (err)
+						throw err;
+					else if (trade && trade.status === -1) {
+						console.log('Trade already exists!');
+						return res.end();
+					}
+					else {
+						var bookId = req.params.bookid;
+						// Find the book information
+						Books.findOne({ '_id': bookId },
+							function (err, bookinfo) {
+								if (err)
+									throw err;
+								else if (bookinfo) {
+									var newTrade = new Trades();
+									newTrade.bookid = bookId;
+									newTrade.requester = req.user.username;
+									newTrade.owner = bookinfo.username;
+									newTrade.bookname = bookinfo.bookname;
+									newTrade.thumbnail = bookinfo.thumbnail;
+									newTrade.status = -1;
+									newTrade.save(function(err) {
+										if (err)
+											throw err;
+										return res.end();
+									})
+								}
+								else {
+									console.log("something went wrong, there should be a book");
 									return res.end();
-								})
-							}
-							else {
-								console.log("something went wrong, there should be a book");
-								return res.end();
-							}
-					});
-				}
-		});
+								}
+						});
+					}
+			});
 	});
 
-app.route('/trade/requested')
-	.get(function(req, res) {
-		Trades.find({ 'requester': req.user.username, 'status': -1 },
-			function(err, trade) {
+	app.route('/trade/requested')
+		.get(function(req, res) {
+			Trades.find({ 'requester': req.user.username, 'status': -1 },
+				function(err, trade) {
 
-				if (err)
-					throw err;
-				else if (trade) {
-					return res.json(trade);
-				}
-				else {
-					return res.json({});
-				}
-		});
+					if (err)
+						throw err;
+					else if (trade) {
+						return res.json(trade);
+					}
+					else {
+						return res.json({});
+					}
+			});
 	});
 
-app.route('/trade/received')
-	.get(function(req, res) {
-		Trades.find({ 'owner': req.user.username, 'status': -1 },
-			function(err, trade) {
-				if (err)
-					throw err;
-				else if (trade) {
-					return res.json(trade);
-				}
-				else {
-					return res.json({});
-				}
-		});
+	app.route('/trade/received')
+		.get(function(req, res) {
+			Trades.find({ 'owner': req.user.username, 'status': -1 },
+				function(err, trade) {
+					if (err)
+						throw err;
+					else if (trade) {
+						return res.json(trade);
+					}
+					else {
+						return res.json({});
+					}
+			});
 	});
 
 	app.route('/trade/withdraw')
@@ -351,6 +353,37 @@ app.route('/trade/received')
 			});
 	});
 
+
+  app.route('/trade/borrowed')
+  	.get(function(req, res) {
+			Trades.find({ 'requester': req.user.username, 'status': 1 },
+				function(err, trade) {
+					if (err)
+						throw err;
+					else if (trade) {
+						return res.json(trade);
+					}
+					else {
+						return res.json({});
+					}
+			});
+  });
+
+
+
+  app.route('/trade/return')
+  	.post(function(req, res) {
+
+			Trades.findOneAndUpdate(
+				{ _id: req.body._id }, 
+				{ status: 2 },
+				{ upsert: false},
+				function(err, doc){
+			    if (err) 
+			    	return res.send(500, { error: err });
+			    return res.end();
+			});
+  });
 
 };
 
