@@ -24,11 +24,16 @@ module.exports = function(app, passport) {
 
 	app.route('/user/login')
 		.post(
-			passport.authenticate('local-login', {
+			passport.authenticate('local-login'), function(req, res) {
+				res.send(req.user);
+			});
+
+/*			, {
         successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signup page if there is an error
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
   }));
+*/
 
 	app.route('/user/logout')
 		.get(function(req, res) {

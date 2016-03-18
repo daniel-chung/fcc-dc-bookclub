@@ -10,6 +10,7 @@ angular.module('bookClubApp').factory('AuthService',
     var gUsername = '';
 
     function isLoggedIn() {
+      console.log('user', user);
       if (user)
         return true;
       else
@@ -27,6 +28,7 @@ angular.module('bookClubApp').factory('AuthService',
     function login(username, password) {
       // create a new instance of deferred
       var deferred = $q.defer();
+      
       $http.post('/user/login', {username: username, password: password})
         .success(function (data, status) {
           console.log('data status', data.status, status);

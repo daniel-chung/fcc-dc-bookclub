@@ -21,7 +21,7 @@ angular.module('bookClubApp', [
 
 .run(function ($rootScope, $location, $route, AuthService) {
 	$rootScope.$on('$routeChangeStart', function (event, next, current) {
-		console.log('next', next.access);
+		console.log('next', next.access, AuthService.isLoggedIn());
 		if (next.access.restricted && AuthService.isLoggedIn() === false) {
 			$location.path('/login');
 			$route.reload();

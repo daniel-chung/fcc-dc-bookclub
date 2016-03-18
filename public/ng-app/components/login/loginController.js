@@ -33,6 +33,7 @@
 
           // handle success
           .then(function () {
+            console.log('login success');
             $location.path('/mybooks');
             $scope.disabled = false;
             $scope.loginForm = {};
@@ -40,6 +41,7 @@
 
           // handle error
           .catch(function () {
+            console.log('login error');
             $scope.error = true;
             $scope.errorMessage = "Invalid username and/or password";
             $scope.disabled = false;
